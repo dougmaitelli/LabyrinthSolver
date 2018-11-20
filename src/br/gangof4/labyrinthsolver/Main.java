@@ -13,15 +13,15 @@ public class Main {
     public static void main(String[] args) {
         Labyrinth lab = new LabyrinthFactory(WIDTH,  HEIGHT).generateMaze();
         
+        System.out.println("Entrance: " + lab.getEntrance().getPoint());
+        System.out.println("Exit: " + lab.getExit().getPoint());
+        
         lab.printLabyrinth(null);
 
         System.out.println();
         System.out.println();
         
         LabyrinthSolver solver = new LabyrinthSolver(lab);
-        
-        System.out.println("Entrance: " + lab.getEntrance().getPoint());
-        System.out.println("Exit: " + lab.getExit().getPoint());
         
         boolean solved = solver.solve();
 
