@@ -44,6 +44,14 @@ public class AbstractBlock<B extends AbstractBlock<?>> implements Comparable<B> 
         this.walkable = walkable;
     }
     
+    public boolean isEntrance() {
+    	return this.labyrinth.getEntrance().equals(this);
+    }
+    
+    public boolean isExit() {
+    	return this.labyrinth.getExit().equals(this);
+    }
+    
     public B getBlockOnRight() {
     	if (getPoint().getX() == labyrinth.getWidth() - 1) {
     		return null;
@@ -76,28 +84,49 @@ public class AbstractBlock<B extends AbstractBlock<?>> implements Comparable<B> 
     	return labyrinth.getBlock(this.getPoint().getX(), this.getPoint().getY() + 1);
     }
     
-    public List<B> getNeightbors() {
-    	List<B> neightbors = new ArrayList<B>();
+    public List<B> getAdjacentBlocks() {
+    	List<B> nbs = new ArrayList<B>();
     	
     	B block;
     	block = getBlockOnRight();
     	if (block != null) {
-    		neightbors.add(block);
+    		nbs.add(block);
     	}
     	block = getBlockOnLeft();
     	if (block != null) {
-    		neightbors.add(block);
+    		nbs.add(block);
     	}
     	block = getBlockOnTop();
     	if (block != null) {
-    		neightbors.add(block);
+    		nbs.add(block);
     	}
     	block = getBlockBelow();
     	if (block != null) {
-    		neightbors.add(block);
+    		nbs.add(block);
     	}
     	
-    	return neightbors;
+    	return nbs;
+    }
+    
+    public List<B> getWalkableAdjacentBlocks() {
+    	List<B> nbs = new ArrayList<B>();
+    	
+    	for (B nb : this.getAdjacentBlocks()) {
+    		if (nb.isWalkable()) {
+    			nbs.add(nb);
+    		}
+    	}
+    	
+    	return nbs;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj == null) {
+    		return false;
+    	}
+    	
+    	return this.point.equals(((AbstractBlock<?>) obj).getPoint());
     }
     
     public int compareTo(B o) {
@@ -105,5 +134,10 @@ public class AbstractBlock<B extends AbstractBlock<?>> implements Comparable<B> 
         Double d2 = Point.getDistance(labyrinth.getExit().getPoint(), o.getPoint());
 
         return d1.compareTo(d2);
+    }
+    
+    @Override
+    public String toString() {
+    	return this.point.toString();
     }
 }
