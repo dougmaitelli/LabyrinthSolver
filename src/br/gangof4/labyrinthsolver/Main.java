@@ -39,7 +39,7 @@ public class Main {
 		boolean solved = solver.solve();
 
 		if (solved) {
-			lab.printLabyrinth(solver, true);
+			lab.printLabyrinth(solver, false);
 
 			System.out.print("S->");
 			for (WalkBlock b : solver.getPath()) {
