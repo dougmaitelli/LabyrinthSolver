@@ -32,9 +32,9 @@ public class LabyrinthFactory {
 			}
 		}
 
-		lab.setEntrance(lab.getBlock(randomPoint().setX(0)));
+		lab.setEntrance(lab.getBlock(randomPoint()));
 		lab.getEntrance().setWalkable(true);
-		lab.setExit(lab.getBlock(randomPoint().setX(width - 1)));
+		lab.setExit(lab.getBlock(randomPoint()));
 		lab.getExit().setWalkable(true);
 
 		return lab;
